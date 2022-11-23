@@ -15,4 +15,4 @@ echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Roboshop@1';" >/tmp/root-pass
 DEFAULT_PASSWORD=$(grep 'A temporary password is generated' /var/log/mysqld.log | awk '{print $NF}')
 
 
-#cat /tmp/sql | mysql --connect-expired-password -uroot -p2eBP0p>-mCy+
+cat /tmp/sql | mysql --connect-expired-password -uroot -p"$(DEFAULT_PASSWORD)"
