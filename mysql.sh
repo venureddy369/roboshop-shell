@@ -1,4 +1,4 @@
-if[ -z "$1" ]
+if [ -z "$1" ]
   then
     echo Input argument Password is needed
 fi
