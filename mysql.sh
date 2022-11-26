@@ -1,6 +1,7 @@
 if [ -z "$1" ]
   then
     echo Input argument Password is needed
+    exit
 fi
 
 ROBOSHOP_MYSQL_PASSWORD=$1
