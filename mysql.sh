@@ -46,7 +46,7 @@ else
 fi
 
 echo -e "\e[31mstart mysql service\e[0m"
-systemctl start mysqld
+systemctl restart mysqld
 
 if [ $? -eq 0 ]; then
   echo SUCCESS
