@@ -15,7 +15,7 @@ else
     echo Failure
 fi
 
-echo -e "\e[31minstall mysql\e[0"
+echo -e "\e[31minstall mysql\e[0m"
 yum install mysql-community-server -y
 
 if [ $? -eq 0 ]; then
@@ -24,7 +24,7 @@ else
     echo Failure
 fi
 
-echo -e "\e[31menable mysql service\e[0"
+echo -e "\e[31menable mysql service\e[0m"
 systemctl enable mysqld
 
 if [ $? -eq 0 ]; then
@@ -33,7 +33,7 @@ else
     echo Failure
 fi
 
-echo -e "\e[31mstart mysql service\e[0"
+echo -e "\e[31mstart mysql service\e[0m"
 systemctl start mysqld
 
 if [ $? -eq 0 ]; then
