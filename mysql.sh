@@ -4,6 +4,7 @@ if [ $? -eq 0 ]; then
   echo SUCCESS
 else
     echo Failure
+    exit
 fi
 
 echo -e "\e[31mdisable mysql7 repo\e[0m"
@@ -13,6 +14,7 @@ if [ $? -eq 0 ]; then
   echo SUCCESS
 else
     echo Failure
+    exit
 fi
 
 echo -e "\e[31minstall mysql\e[0m"
@@ -22,6 +24,7 @@ if [ $? -eq 0 ]; then
   echo SUCCESS
 else
     echo Failure
+    exit
 fi
 
 echo -e "\e[31menable mysql service\e[0m"
@@ -31,6 +34,7 @@ if [ $? -eq 0 ]; then
   echo SUCCESS
 else
     echo Failure
+    exit
 fi
 
 echo -e "\e[31mstart mysql service\e[0m"
@@ -40,6 +44,7 @@ if [ $? -eq 0 ]; then
   echo SUCCESS
 else
     echo Failure
+    exit
 fi
 
 echo show databases | mysql -uroot -pRoboshop@1   #-->if  this command giving output that means password changed
