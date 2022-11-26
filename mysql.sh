@@ -7,7 +7,7 @@ systemctl enable mysqld
 systemctl start mysqld
 
 echo show databases | mysql -uroot -pRoboshop@1   #-->if  this command giving output that means password changed
-if [ $? -ne 0]
+if [ $? -ne 0 ]
   then
 #resetting of password
 
