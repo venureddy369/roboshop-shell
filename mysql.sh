@@ -1,10 +1,10 @@
-if [ -z "$1" ]
-  then
-    echo Input argument Password is needed
-    exit
-fi
+#if [ -z "$1" ]
+#  then
+ #   echo Input argument Password is needed
+  #  exit
+#fi
 
-ROBOSHOP_MYSQL_PASSWORD=$1
+#ROBOSHOP_MYSQL_PASSWORD=$1
 
 echo -e "\e[31mDownloading mysql file\e[0m"
 curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
@@ -55,12 +55,12 @@ else
     exit
 fi
 
-echo show databases | mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD}   #-->if  this command giving output that means password changed
+echo show databases | mysql -uroot -pRoboShop@1   #-->if  this command giving output that means password changed
 if [ $? -ne 0 ]
   then
 #resetting of password
 
-    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${ROBOSHOP_MYSQL_PASSWORD}';" >/tmp/root-pass-sql
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" >/tmp/root-pass-sql
     ##(here above cmnd we have entered the password but that not ac ode standards always don't hard code the passwords)
 
 
