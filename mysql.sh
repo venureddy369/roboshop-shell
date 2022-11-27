@@ -75,14 +75,59 @@
 
 ############################################
 
+echo -e "\e[31mDownloading mysql file\e[0m"
+
  curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
+
+if [ $? -eq 0 ]; then
+  echo SUCCESS
+else
+    echo Failure
+    exit
+fi
+
+echo -e "\e[31mdisable mysql7 repo\e[0m"
  dnf module disable mysql -y
 
+if [ $? -eq 0 ]; then
+  echo SUCCESS
+else
+    echo Failure
+    exit
+fi
 
+
+echo -e "\e[31minstalling mysql\e[0m"
   yum install mysql-community-server -y
 
+if [ $? -eq 0 ]; then
+  echo SUCCESS
+else
+  echo Failure
+  exit
+fi
+
+
+echo -e "\e[31menabling mysql\e[0m"
    systemctl enable mysqld
+
+if [ $? -eq 0 ]; then
+  echo SUCCESS
+else
+  echo Failure
+  exit
+fi
+
+echo -e "\e[31mstart mysql\e[0m"
+
    systemctl restart mysqld
+
+if [ $? -eq 0 ]; then
+  echo SUCCESS
+else
+  echo Failure
+  exit
+fi
 
     echo show databases | mysql -uroot -pRoboShop@1
     if [ $? -ne 0 ]
