@@ -1,4 +1,4 @@
-COMPONENT=mangodb
+COMPONENT=mongodb
 source common.sh
 
 PRINT "Download mangod repo file"
