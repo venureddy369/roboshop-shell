@@ -79,20 +79,7 @@ if [ -z "$1" ]; then
   exit
 fi
 
-STAT(){
 
-  if [ $1 -eq 0 ]; then
-    echo SUCCESS
-  else
-      echo Failure
-      exit
-  fi
-}
-
-PRINT(){
-
-  echo -e "\e[31m$1\e[0m"
-}
 ROBOSHOP_MYSQL_PASSWORD=$1
 
 PRINT "Downloading mysql file"
