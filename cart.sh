@@ -1,4 +1,4 @@
-source comman.sh
+source common.sh
 
 PRINT "Download NodeJs repo file"
 
