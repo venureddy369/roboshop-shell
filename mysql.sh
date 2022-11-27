@@ -74,7 +74,10 @@
 
 
 ############################################
-
+if [ -z "$1" ]; then
+  echo  password argument needed please enter:
+  exit
+fi
 ROBOSHOP_MYSQL_PASSWORD=$1
 echo -e "\e[31mDownloading mysql file\e[0m"
 
