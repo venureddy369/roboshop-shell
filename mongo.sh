@@ -1,23 +1,23 @@
 COMPONENT=mongodb
 source common.sh
 
-PRINT "Download mangod repo file"
+PRINT "Download mongodb YUM repo file"
 curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/roboshop-devops-project/mongodb/main/mongo.repo &>>$LOG
 STAT $?
 
-PRINT "Install mangodb"
+PRINT "Install mongodb"
 yum install -y mongodb-org &>>$LOG
 STAT $?
 
-PRINT "Configure mangod listen address "
+PRINT "Configure mongodb listen address "
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>$LOG
 STAT $?
 
-PRINT "Enable mangod service"
+PRINT "Enable mongodb service"
 systemctl enable mongod &>>$LOG
 STAT $?
 
-PRINT "Start mangod service"
+PRINT "Start mongodb service"
 systemctl restart mongod &>>$LOG
 STAT $?
 
@@ -31,11 +31,11 @@ DOWNLOAD_APP_CODE
 cd mongodb-main &>>$LOG
 
 PRINT "Load catalogue schema"
-mongo < catalogue.js
+mongo < catalogue.js &>>$LOG
 STAT $?
 
 PRINT "Load users schema"
-mongo < users.js
+mongo < users.js &>>$LOG
 STAT $?
 
 
