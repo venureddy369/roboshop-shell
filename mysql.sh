@@ -88,31 +88,36 @@ STAT(){
       exit
   fi
 }
-ROBOSHOP_MYSQL_PASSWORD=$1
-echo -e "\e[31mDownloading mysql file\e[0m"
 
+PRINT(){
+
+  echo -e "\e[31m$1\e[0m"
+}
+ROBOSHOP_MYSQL_PASSWORD=$1
+
+PRINT "Downloading mysql file"
  curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
 
 STAT $?
 
-echo -e "\e[31mdisable mysql7 repo\e[0m"
+PRINT "disable mysql8 app version"
  dnf module disable mysql -y
 
 STAT $?
 
 
-echo -e "\e[31minstalling mysql\e[0m"
+PRINT "installing mysql"
   yum install mysql-community-server -y
 
 STAT $?
 
 
-echo -e "\e[31menabling mysql\e[0m"
+PRINT "enabling mysql"
    systemctl enable mysqld
 
 STAT $?
 
-echo -e "\e[31mstart mysql\e[0m"
+PRINT "start mysql"
 
    systemctl restart mysqld
 
