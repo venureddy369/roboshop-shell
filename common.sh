@@ -17,8 +17,27 @@ PRINT(){
 LOG=/tmp/$COMPONENT.log
 rm -f $LOG
 
+DOWNLOAD_APP_CODE(){
+
+  PRINT "Download App content"
+  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>$LOG
+  STAT $?
+
+
+  PRINT "Remove previous version of app"
+  cd ${APP_LOC} &>>$LOG
+  rm -rf ${CONTENT} &>>$LOG
+  STAT $?
+
+  PRINT "Extracting app content"
+  unzip -o /tmp/${COMPONENT}.zip &>>$LOG
+  STAT $?
+
+}
 
 NODEJS(){
+  APP_LOC=/home/roboshop
+  CONTENT=${COMPONENT}
   PRINT "Download NodeJs repo file"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG
   STAT $?
@@ -35,20 +54,7 @@ NODEJS(){
   fi
   STAT $?
 
-
-  PRINT "Download App content"
-  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>$LOG
-  STAT $?
-
-
-  PRINT "Remove previous version of app"
-  cd /home/roboshop &>>$LOG
-  rm -rf ${COMPONENT}
-  STAT $?
-
-  PRINT "Extracting app content"
-  unzip -o /tmp/${COMPONENT}.zip &>>$LOG
-  STAT $?
+DOWNLOAD_APP_CODE
 
 
   mv ${COMPONENT}-main ${COMPONENT}
