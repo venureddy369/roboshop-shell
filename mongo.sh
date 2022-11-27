@@ -25,7 +25,6 @@ STAT $?
 
 APP_LOC=/tmp
 CONTENT=mongodb-main
-
 DOWNLOAD_APP_CODE
 
 
