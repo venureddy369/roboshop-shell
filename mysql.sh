@@ -114,3 +114,14 @@ STAT $?
          DEFAULT_PASSWORD=$(grep ' A temporary password' /var/log/mysqld.log | awk '{print $NF}')
          cat /tmp/root-pass-sql  | mysql --connect-expired-password -uroot -p"${DEFAULT_PASSWORD}" &>>$LOG
     fi
+
+PRINT "Uninstall Validate plugin password"
+echo "show plugins" | mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} | grep validate_password &>>$LOG
+
+if [ $? -eq 0 ]; then
+
+  echo "uninstall plugin validate_password;" | mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} &>>$LOG
+
+fi
+STAT $?
+
