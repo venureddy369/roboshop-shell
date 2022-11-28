@@ -79,7 +79,7 @@ if [ -z "$1" ]; then
   exit
 fi
 
-COMPONENT=redis
+COMPONENT=mysql
 source common.sh
 
 ROBOSHOP_MYSQL_PASSWORD=$1
