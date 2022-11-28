@@ -125,3 +125,14 @@ if [ $? -eq 0 ]; then
 fi
 STAT $?
 
+APP_LOC=/tmp
+CONTENT=mysql-main
+DOWNLOAD_APP_CODE
+
+
+cd mysql-main &>>$LOG
+
+PRINT "Load Shipping schema"
+mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} <shipping.sql &>>$LOG
+STAT $?
+
