@@ -18,6 +18,14 @@ LOG=/tmp/$COMPONENT.log
 rm -f $LOG
 
 DOWNLOAD_APP_CODE(){
+if [ ! -z "${APP_USER}" ]; then
+   PRINT "Adding application user"
+   id roboshop &>>$LOG
+   if [ $? -ne 0 ]; then
+     useradd roboshop &>>$LOG
+   fi
+   STAT $?
+fi
 
   PRINT "Download App content"
   curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>$LOG
@@ -35,9 +43,29 @@ DOWNLOAD_APP_CODE(){
 
 }
 
+SYSTEMD_SETUP(){
+
+   PRINT "setup systemd service"
+    mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>$LOG
+    STAT $?
+
+    PRINT "Reload systemd"
+    systemctl daemon-reload &>>$LOG
+    STAT $?
+
+    PRINT "restart ${COMPONENT}"
+    systemctl restart ${COMPONENT} &>>$LOG
+    STAT $?
+
+    PRINT "enable ${COMPONENT}"
+    systemctl enable ${COMPONENT} &>>$LOG
+    STAT $?
+}
+
 NODEJS(){
   APP_LOC=/home/roboshop
   CONTENT=${COMPONENT}
+  APP_USER=roboshop
   PRINT "Download NodeJs repo file"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG
   STAT $?
@@ -45,18 +73,7 @@ NODEJS(){
   PRINT "Install nodejs"
   yum install nodejs -y &>>$LOG
   STAT $?
-
-
-  PRINT "Adding application user"
-  id roboshop &>>$LOG
-  if [ $? -ne 0 ]; then
-    useradd roboshop &>>$LOG
-  fi
-  STAT $?
-
-DOWNLOAD_APP_CODE
-
-
+  DOWNLOAD_APP_CODE
   mv ${COMPONENT}-main ${COMPONENT}
   cd ${COMPONENT}
 
@@ -69,20 +86,26 @@ DOWNLOAD_APP_CODE
   sed -i -e 's/REDIS_ENDPOINT/redis.devops69.online/' -e 's/CATALOGUE_ENDPOINT/catalogue.devops.online/' systemd.service &>>$LOG
   STAT $?
 
+  SYSTEMD_SETUP
 
-  PRINT "setup systemd service"
-  mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>$LOG
+}
+
+
+JAVA(){
+
+ APP_LOC=/home/roboshop
+ CONTENT=${COMPONENT}
+ APP_USER=roboshop
+
+  PRINT "Install Maven"
+  yum install maven -y &>>$LOG
   STAT $?
 
-  PRINT "Reload systemd"
-  systemctl daemon-reload &>>$LOG
+  DOWNLOAD_APP_CODE
+
+  PRINT " Download Maven dependencies"
+  mvn clean package&>>$LOG && mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar &>>$LOG
   STAT $?
 
-  PRINT "restart ${COMPONENT}"
-  systemctl restart ${COMPONENT} &>>$LOG
-  STAT $?
-
-  PRINT "enable ${COMPONENT}"
-  systemctl enable ${COMPONENT} &>>$LOG
-  STAT $?
+  SYSTEMD_SETUP
 }
