@@ -101,7 +101,8 @@ JAVA(){
   yum install maven -y &>>$LOG
   STAT $?
 
-  DOWNLOAD_APP_CODE
+  mv ${COMPONENT}-main ${COMPONENT}
+  cd ${COMPONENT}
 
   PRINT " Download Maven dependencies"
   mvn clean package&>>$LOG && mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar &>>$LOG
