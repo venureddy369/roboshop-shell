@@ -48,7 +48,7 @@ SYSTEMD_SETUP(){
    PRINT "setup systemd service"
 
 
-     sed -i -e 's/MONGO_DNSNAME/dev-mongodb.venudevops.online	/' -e 's/REDIS_ENDPOINT/dev-redis.venudevops.online	/' -e 's/CATALOGUE_ENDPOINT/dev-catalogue.venudevops.online	/' -e 's/MONGO_ENDPOINT/dev-mongodb.venudevops.online	/' -e 's/CARTENDPOINT/dev-cart.venudevops.online	/' -e 's/DBHOST/dev-mysql.venudevops.online	/' -e 's/AMQPHOST/dev-rabbitmq.venudevops.online	/' -e 's/CARTHOST/dev-cart.venudevops.online	/' -e 's/USERHOST/dev-user.venudevops.online/' /home/roboshop/${COMPONENT}/systemd.service &>>$LOG
+     sed -i -e 's/MONGO_DNSNAME/dev-mongodb.venudevops.online	/' -e 's/REDIS_ENDPOINT/dev-redis.venudevops.online	/' -e 's/CATALOGUE_ENDPOINT/dev-catalogue.venudevops.online	/' /home/roboshop/${COMPONENT}/systemd.service &>>$LOG
      mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service
      STAT $?
 
