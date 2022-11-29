@@ -42,5 +42,5 @@ rabbitmqctl set_user_tags roboshop administrator &>>$LOG
 STAT $?
 
 PRINT "setup application user permissions"
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG
 STAT $?
