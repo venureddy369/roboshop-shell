@@ -5,6 +5,7 @@ ROBOSHOP_APP_USER_PASS=$1
 if [ -z "$1" ]
   then
     echo "Please enter password"
+    exit
 fi
 
 
